@@ -7,9 +7,7 @@
     <artifactId>booklibrary</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>by.vonotirah</groupId>
-  <artifactId>dao</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>dao_layer</artifactId>
   <name>dao</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -17,10 +15,29 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+    	<groupId>postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>9.1-901.jdbc4</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongo-java-driver</artifactId>
+	    <version>3.3.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.powermock</groupId>
+	    <artifactId>powermock-api-mockito</artifactId>
+	    <version>1.6.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.powermock</groupId>
+	    <artifactId>powermock-module-junit4</artifactId>
+	    <version>1.6.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.mockrunner</groupId>
+	    <artifactId>mockrunner-jdbc</artifactId>
+	    <version>1.1.2</version>
+	</dependency>
   </dependencies>
 </project>
