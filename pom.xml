@@ -6,7 +6,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>dao_layer</module>
+    <module>persistence_layer</module>
   </modules>
   	<dependencies>
   		<dependency>
