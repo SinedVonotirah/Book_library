@@ -14,11 +14,17 @@ import by.vonotirah.booklibrary.persistence.domain.User;
 
 public class SqlBookDao implements BookDao {
 
+	public SqlBookDao(SqlConnectionFactory connectionFactory) {
+		super();
+		this.connectionFactory = connectionFactory;
+	}
+
+	private SqlConnectionFactory connectionFactory;
+
 	public void createBook(Book book) throws SQLException {
 		String sql = "INSERT INTO book (name) VALUES (?)";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 
 			statement.setString(1, book.getName());
@@ -29,8 +35,7 @@ public class SqlBookDao implements BookDao {
 	public void updateBook(Book book) throws SQLException {
 		String sql = "UPDATE book SET name=? WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 
 			statement.setString(1, book.getName());
@@ -42,8 +47,7 @@ public class SqlBookDao implements BookDao {
 	public void assignBook(Book book, User user) throws SQLException {
 		String sql = "UPDATE book SET user_id=? WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(user.getId()));
 			statement.setInt(2, Integer.parseInt(book.getId()));
@@ -56,8 +60,7 @@ public class SqlBookDao implements BookDao {
 		String sql = "SELECT * FROM book WHERE id=?";
 		List<Book> list = new ArrayList<Book>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(id));
 			ResultSet result = statement.executeQuery();
@@ -76,8 +79,7 @@ public class SqlBookDao implements BookDao {
 		String sql = "SELECT * FROM book WHERE name=?";
 		List<Book> list = new ArrayList<Book>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, name);
 			ResultSet result = statement.executeQuery();
@@ -92,8 +94,7 @@ public class SqlBookDao implements BookDao {
 	public void passBook(Book book) throws SQLException {
 		String sql = "UPDATE book SET user_id=0 WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(book.getId()));
 			statement.executeUpdate();
@@ -104,8 +105,7 @@ public class SqlBookDao implements BookDao {
 		String sql = "SELECT * FROM book";
 		List<Book> list = new ArrayList<Book>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				Statement statement = connection.createStatement();) {
 			ResultSet result = statement.executeQuery(sql);
 			list = parseBookResultSet(result);
@@ -118,8 +118,7 @@ public class SqlBookDao implements BookDao {
 		String sql = "SELECT * FROM book WHERE user_id=0";
 		List<Book> list = new ArrayList<Book>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				Statement statement = connection.createStatement();) {
 			ResultSet result = statement.executeQuery(sql);
 			list = parseBookResultSet(result);
@@ -130,8 +129,7 @@ public class SqlBookDao implements BookDao {
 	public void deleteBook(Book book) throws SQLException {
 		String sql = "DELETE FROM book WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(book.getId()));
 			statement.executeUpdate();

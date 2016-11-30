@@ -2,16 +2,12 @@ package by.vonotirah.booklibrary.persistence.nosql;
 
 import com.mongodb.MongoClient;
 
-public enum ConnectionFactory {
+public class NoSqlConnectionFactory {
 
-	CONNECTION;
+	private MongoClient client;
 
-	private MongoClient client = null;
-
-	private ConnectionFactory() {
-
+	public NoSqlConnectionFactory() {
 		client = new MongoClient("localhost", 27017);
-
 	}
 
 	public MongoClient getClient() {
@@ -19,4 +15,5 @@ public enum ConnectionFactory {
 			throw new RuntimeException();
 		return client;
 	}
+
 }

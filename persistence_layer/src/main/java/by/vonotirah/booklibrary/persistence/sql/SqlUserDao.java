@@ -12,12 +12,18 @@ import by.vonotirah.booklibrary.persistence.domain.User;
 
 public class SqlUserDao implements UserDao {
 
+	private SqlConnectionFactory connectionFactory;
+
+	public SqlUserDao(SqlConnectionFactory connectionFactory) {
+		super();
+		this.connectionFactory = connectionFactory;
+	}
+
 	@Override
 	public void createUser(User user) throws SQLException {
 		String sql = "INSERT INTO users (first_name, last_name) VALUES (?, ?)";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, user.getFirstName());
 			statement.setString(2, user.getLastName());
@@ -32,8 +38,7 @@ public class SqlUserDao implements UserDao {
 		String sql = "SELECT * FROM users WHERE id=?";
 		List<User> list = new ArrayList<User>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(id));
 			ResultSet result = statement.executeQuery();
@@ -52,8 +57,7 @@ public class SqlUserDao implements UserDao {
 		String sql = "SELECT * FROM users WHERE last_name=?";
 		List<User> list = new ArrayList<User>();
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, lastName);
 			ResultSet result = statement.executeQuery();
@@ -69,8 +73,7 @@ public class SqlUserDao implements UserDao {
 	public void updateUser(User user) throws SQLException {
 		String sql = "UPDATE users SET first_name=?, last_name =? WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, user.getFirstName());
 			statement.setString(2, user.getLastName());
@@ -84,8 +87,7 @@ public class SqlUserDao implements UserDao {
 	public void deleteUser(User user) throws SQLException {
 		String sql = "DELETE FROM users WHERE id=?";
 
-		try (Connection connection = ConnectionFactory.getInstance()
-				.getConnection();
+		try (Connection connection = connectionFactory.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setInt(1, Integer.parseInt(user.getId()));
 			statement.executeUpdate();

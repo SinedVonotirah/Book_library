@@ -19,10 +19,9 @@ public class NoSqlBookDao implements BookDao {
 
 	private MongoCollection<Document> collection;
 
-	public NoSqlBookDao() {
+	public NoSqlBookDao(NoSqlConnectionFactory connectionFactory) {
 		super();
-		MongoDatabase dataBase = ConnectionFactory.CONNECTION.getClient()
-				.getDatabase("booklibrary");
+		MongoDatabase dataBase = connectionFactory.getClient().getDatabase("booklibrary");
 		collection = dataBase.getCollection("book");
 	}
 
@@ -38,15 +37,12 @@ public class NoSqlBookDao implements BookDao {
 	}
 
 	public void assignBook(Book book, User user) throws SQLException {
-		collection.updateOne(
-				Filters.eq("_id", new ObjectId(book.getId())),
-				new Document("$set", new Document("user_id", new ObjectId(user
-						.getId()))));
+		collection.updateOne(Filters.eq("_id", new ObjectId(book.getId())),
+				new Document("$set", new Document("user_id", new ObjectId(user.getId()))));
 	}
 
 	public Book getBookById(String id) throws SQLException {
-		Document doc = collection.find(Filters.eq("_id", new ObjectId(id)))
-				.first();
+		Document doc = collection.find(Filters.eq("_id", new ObjectId(id))).first();
 		if (doc != null) {
 			return parseBook(doc);
 		}
@@ -78,8 +74,7 @@ public class NoSqlBookDao implements BookDao {
 
 	public List<Book> getAllFreeBooks() throws SQLException {
 		List<Book> books = new ArrayList<Book>();
-		List<Document> docs = collection.find(Filters.exists("_id", false))
-				.into(new ArrayList<Document>());
+		List<Document> docs = collection.find(Filters.exists("_id", false)).into(new ArrayList<Document>());
 		for (Document doc : docs) {
 			books.add(parseBook(doc));
 		}

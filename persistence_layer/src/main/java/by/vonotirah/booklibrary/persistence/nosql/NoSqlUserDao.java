@@ -16,10 +16,9 @@ public class NoSqlUserDao implements UserDao {
 
 	private MongoCollection<Document> collection;
 
-	public NoSqlUserDao() {
+	public NoSqlUserDao(NoSqlConnectionFactory connectionFactory) {
 		super();
-		MongoDatabase dataBase = ConnectionFactory.CONNECTION.getClient()
-				.getDatabase("booklibrary");
+		MongoDatabase dataBase = connectionFactory.getClient().getDatabase("booklibrary");
 		collection = dataBase.getCollection("user");
 	}
 
@@ -32,8 +31,7 @@ public class NoSqlUserDao implements UserDao {
 	}
 
 	public User getUserById(String id) throws SQLException {
-		Document doc = collection.find(Filters.eq("_id", new ObjectId(id)))
-				.first();
+		Document doc = collection.find(Filters.eq("_id", new ObjectId(id))).first();
 		if (doc != null) {
 			return parseUser(doc);
 		}
@@ -41,8 +39,7 @@ public class NoSqlUserDao implements UserDao {
 	}
 
 	public User getUserByLastName(String lastName) throws SQLException {
-		Document doc = collection.find(Filters.eq("last_name", lastName))
-				.first();
+		Document doc = collection.find(Filters.eq("last_name", lastName)).first();
 		if (doc != null) {
 			return parseUser(doc);
 		}
@@ -53,8 +50,7 @@ public class NoSqlUserDao implements UserDao {
 		Document userDoc = new Document();
 		userDoc.append("first_name", user.getFirstName());
 		userDoc.append("last_name", user.getLastName());
-		collection.updateOne(Filters.eq("_id", new ObjectId(user.getId())),
-				new Document("$set", userDoc));
+		collection.updateOne(Filters.eq("_id", new ObjectId(user.getId())), new Document("$set", userDoc));
 
 	}
 
