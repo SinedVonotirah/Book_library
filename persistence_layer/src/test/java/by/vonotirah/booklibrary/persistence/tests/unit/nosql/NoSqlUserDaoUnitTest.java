@@ -13,9 +13,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import by.vonotirah.booklibrary.persistence.domain.Book;
+import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.persistence.nosql.NoSqlBookDao;
 import by.vonotirah.booklibrary.persistence.nosql.NoSqlConnectionFactory;
+import by.vonotirah.booklibrary.persistence.nosql.NoSqlUserDao;
 import by.vonotirah.booklibrary.persistence.tests.AbstractTest;
 
 import com.mongodb.MongoClient;
@@ -23,8 +24,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ NoSqlBookDao.class })
-public class NoSqlBookDaoUnitTest extends AbstractTest {
+@PrepareForTest({ NoSqlUserDao.class })
+public class NoSqlUserDaoUnitTest extends AbstractTest {
 
 	private NoSqlConnectionFactory mockedConnectionFactory;
 	private MongoClient mockedClient;
@@ -52,7 +53,7 @@ public class NoSqlBookDaoUnitTest extends AbstractTest {
 
 	@Test
 	public void constructorunitTest() throws Exception {
-		new NoSqlBookDao(mockedConnectionFactory);
+		new NoSqlUserDao(mockedConnectionFactory);
 		verify(mockedConnectionFactory).getClient();
 		verify(mockedClient).getDatabase(anyString());
 		verify(mockedDataBase).getCollection(anyString());
@@ -61,12 +62,12 @@ public class NoSqlBookDaoUnitTest extends AbstractTest {
 
 	@Test
 	public void createBookUnitTest() throws Exception {
-		NoSqlBookDao bookDao = new NoSqlBookDao(mockedConnectionFactory);
-		Book book = getRandomBookObject();
-		bookDao.createBook(book);
+		NoSqlUserDao userDao = new NoSqlUserDao(mockedConnectionFactory);
+		User user = getRandomUserObject();
+		userDao.createUser(user);
 
-		verify(mockedDocument).append("name", book.getName());
+		verify(mockedDocument).append("first_name", user.getFirstName());
+		verify(mockedDocument).append("last_name", user.getLastName());
 		verify(mockedCollection).insertOne(mockedDocument);
 	}
-
 }

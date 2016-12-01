@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.vonotirah.booklibrary.persistence.BookDao;
+import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
+import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.persistence.factory.FactoryContext;
 import by.vonotirah.booklibrary.persistence.tests.AbstractTest;
 
@@ -18,11 +20,11 @@ public class NoSqlBookDaoIntegrationTest extends AbstractTest {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(NoSqlBookDaoIntegrationTest.class);
 
-	private BookDao noSqlBookDao;
+	private BookDao bookDao;
 
 	@Before
 	public void setUp() {
-		noSqlBookDao = FactoryContext.getFactory("NOSQL").getBookDao();
+		bookDao = FactoryContext.getFactory("NOSQL").getBookDao();
 	}
 
 	@Test
@@ -30,23 +32,42 @@ public class NoSqlBookDaoIntegrationTest extends AbstractTest {
 		LOGGER.info("----------------noSqlBookCRUDTest()----------------------");
 		LOGGER.info("----------------Create Book----------------------");
 		Book book = getRandomBookObject();
-		noSqlBookDao.createBook(book);
+		bookDao.createBook(book);
 		LOGGER.info("----------------Read Book----------------------");
-		Book createdBook = noSqlBookDao.getBookByName(book.getName());
+		Book createdBook = bookDao.getBookByName(book.getName());
 		Assert.assertNotNull(createdBook);
 		Assert.assertEquals(book.getName(), createdBook.getName());
 
 		LOGGER.info("----------------Update Book----------------------");
 		createdBook.setName(randomString("updated name"));
-		noSqlBookDao.updateBook(createdBook);
-		Book updatedBook = noSqlBookDao.getBookById(createdBook.getId());
+		bookDao.updateBook(createdBook);
+		Book updatedBook = bookDao.getBookById(createdBook.getId());
 		Assert.assertNotNull(updatedBook);
 		Assert.assertEquals(updatedBook.getName(), createdBook.getName());
 		Assert.assertNotEquals(updatedBook.getName(), book.getName());
 
 		LOGGER.info("----------------Delete Book----------------------");
 
-		noSqlBookDao.deleteBook(updatedBook);
-		Assert.assertNull(noSqlBookDao.getBookById(updatedBook.getId()));
+		bookDao.deleteBook(updatedBook);
+		Assert.assertNull(bookDao.getBookById(updatedBook.getId()));
+	}
+
+	@Test
+	public void assignBookTest() throws Exception {
+		LOGGER.info("----------------assignBookTest()----------------------");
+		UserDao userDao = FactoryContext.getFactory("NOSQL").getUserDao();
+
+		Book book = getRandomBookObject();
+		User user = getRandomUserObject();
+
+		userDao.createUser(user);
+		bookDao.createBook(book);
+		Book bookFromDB = bookDao.getBookByName(book.getName());
+		User userFromDB = userDao.getUserByLastName(user.getLastName());
+		bookDao.assignBook(bookFromDB, userFromDB);
+
+		Book assignedBook = bookDao.getBookByName(book.getName());
+
+		Assert.assertEquals(assignedBook.getUserId(), userFromDB.getId());
 	}
 }
