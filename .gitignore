@@ -1,3 +1,4 @@
 dao/src/main/java/by/vonotirah/booklibrary/dao/App.java
 dao/src/test/java/by/vonotirah/booklibrary/dao/AppTest.java
 dao/logs/logs.log
+persistence_layer/logs/logs.log
