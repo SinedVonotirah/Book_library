@@ -26,7 +26,6 @@ public class BookSoapService implements BookWebService {
 		try {
 			daoManager.getBookDao().createBook(book);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -36,7 +35,6 @@ public class BookSoapService implements BookWebService {
 		try {
 			daoManager.getBookDao().updateBook(book);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -46,18 +44,15 @@ public class BookSoapService implements BookWebService {
 		try {
 			daoManager.getBookDao().assignBook(book, user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public Book getBookById(String id) {
-		// TODO Auto-generated method stub
 		try {
 			return daoManager.getBookDao().getBookById(id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -65,11 +60,9 @@ public class BookSoapService implements BookWebService {
 
 	@Override
 	public Book getBookByName(String name) {
-		// TODO Auto-generated method stub
 		try {
 			return daoManager.getBookDao().getBookByName(name);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -80,18 +73,15 @@ public class BookSoapService implements BookWebService {
 		try {
 			daoManager.getBookDao().passBook(book);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public ArrayList<Book> getAllBooks() {
-		// TODO Auto-generated method stub
 		try {
 			return (ArrayList<Book>) daoManager.getBookDao().getAllBooks();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -99,11 +89,9 @@ public class BookSoapService implements BookWebService {
 
 	@Override
 	public ArrayList<Book> getAllFreeBooks() {
-		// TODO Auto-generated method stub
 		try {
 			return (ArrayList<Book>) daoManager.getBookDao().getAllFreeBooks();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -111,11 +99,9 @@ public class BookSoapService implements BookWebService {
 
 	@Override
 	public void deleteBook(Book book) {
-		// TODO Auto-generated method stub
 		try {
 			daoManager.getBookDao().deleteBook(book);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -111,7 +111,6 @@ public class BookRestService implements BookWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Book> getAllBooks() {
-		// TODO Auto-generated method stub
 		try {
 			return (ArrayList<Book>) daoManager.getBookDao().getAllBooks();
 		} catch (SQLException e) {

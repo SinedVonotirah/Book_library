@@ -23,7 +23,6 @@ public class UserSoapService implements UserWebService {
 		try {
 			daoManager.getUserDao().createUser(user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -31,11 +30,9 @@ public class UserSoapService implements UserWebService {
 
 	@Override
 	public User getUserById(String id) {
-		// TODO Auto-generated method stub
 		try {
 			return daoManager.getUserDao().getUserById(id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -43,11 +40,9 @@ public class UserSoapService implements UserWebService {
 
 	@Override
 	public User getUserByLastName(String lastName) {
-		// TODO Auto-generated method stub
 		try {
 			return daoManager.getUserDao().getUserByLastName(lastName);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -55,11 +50,9 @@ public class UserSoapService implements UserWebService {
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
 		try {
 			daoManager.getUserDao().updateUser(user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -67,11 +60,9 @@ public class UserSoapService implements UserWebService {
 
 	@Override
 	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
 		try {
 			daoManager.getUserDao().deleteUser(user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

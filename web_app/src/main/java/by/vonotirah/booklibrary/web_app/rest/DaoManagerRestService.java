@@ -18,13 +18,11 @@ public class DaoManagerRestService implements DaoManagerWebService {
 
 	@Override
 	public BookDao getBookDao() {
-		// TODO Auto-generated method stub
 		return bookDao;
 	}
 
 	@Override
 	public UserDao getUserDao() {
-		// TODO Auto-generated method stub
 		return userDao;
 	}
 
