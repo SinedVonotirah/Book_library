@@ -31,7 +31,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@POST
-	@Path("/create")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createBook(Book book) {
 		try {
@@ -43,7 +43,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@PUT
-	@Path("/update")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateBook(Book book) {
 		try {
@@ -67,7 +67,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@GET
-	@Path("/getbyid/{id}")
+	@Path("/id/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Book getBookById(@PathParam("id") String id) {
@@ -81,7 +81,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@GET
-	@Path("/getbyname/{name}")
+	@Path("/name/{name}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Book getBookByName(@PathParam("name") String name) {
@@ -107,7 +107,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@GET
-	@Path("/getall")
+	@Path("/all")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Book> getAllBooks() {
@@ -121,7 +121,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@GET
-	@Path("/getfree")
+	@Path("/free")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Book> getAllFreeBooks() {
@@ -135,7 +135,7 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@DELETE
-	@Path("/getfree")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteBook(Book book) {
 		try {

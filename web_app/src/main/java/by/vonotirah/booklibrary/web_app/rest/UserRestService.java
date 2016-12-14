@@ -29,7 +29,7 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@POST
-	@Path("/create")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createUser(User user) {
 		try {
@@ -41,7 +41,7 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@GET
-	@Path("/getbyid/{id}")
+	@Path("/id/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserById(@PathParam("id") String id) {
@@ -55,7 +55,7 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@GET
-	@Path("/getbylastname/{last_name}")
+	@Path("/lastname/{last_name}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserByLastName(@PathParam("last_name") String lastName) {
@@ -69,7 +69,7 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@PUT
-	@Path("/update")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateUser(User user) {
 		try {
@@ -81,7 +81,7 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@DELETE
-	@Path("/delete")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteUser(User user) {
 		try {
