@@ -13,29 +13,27 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import by.vonotirah.booklibrary.persistence.BookDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.BookWebService;
-import by.vonotirah.booklibrary.web_app.DaoManagerWebService;
-import by.vonotirah.booklibrary.web_app.soap.DaoManagerSoapService;
 
 @Path("/book")
 public class BookRestService implements BookWebService {
 
-	private DaoManagerWebService daoManager;
+	private BookDao bookDao;
 
 	public BookRestService() {
 		super();
-		daoManager = new DaoManagerSoapService();
+		bookDao = DaoManagerRestService.getBookDao();
 	}
 
 	@Override
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createBook(Book book) {
 		try {
-			daoManager.getBookDao().createBook(book);
+			bookDao.createBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,11 +41,10 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@PUT
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateBook(Book book) {
 		try {
-			daoManager.getBookDao().updateBook(book);
+			bookDao.updateBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +56,7 @@ public class BookRestService implements BookWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void assignBook(Book book, User user) {
 		try {
-			daoManager.getBookDao().assignBook(book, user);
+			bookDao.assignBook(book, user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +69,7 @@ public class BookRestService implements BookWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Book getBookById(@PathParam("id") String id) {
 		try {
-			return daoManager.getBookDao().getBookById(id);
+			return bookDao.getBookById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,7 +83,7 @@ public class BookRestService implements BookWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Book getBookByName(@PathParam("name") String name) {
 		try {
-			return daoManager.getBookDao().getBookByName(name);
+			return bookDao.getBookByName(name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +96,7 @@ public class BookRestService implements BookWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void passBook(Book book) {
 		try {
-			daoManager.getBookDao().passBook(book);
+			bookDao.passBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -112,7 +109,7 @@ public class BookRestService implements BookWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Book> getAllBooks() {
 		try {
-			return (ArrayList<Book>) daoManager.getBookDao().getAllBooks();
+			return (ArrayList<Book>) bookDao.getAllBooks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +123,7 @@ public class BookRestService implements BookWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Book> getAllFreeBooks() {
 		try {
-			return (ArrayList<Book>) daoManager.getBookDao().getAllFreeBooks();
+			return (ArrayList<Book>) bookDao.getAllFreeBooks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -135,11 +132,10 @@ public class BookRestService implements BookWebService {
 
 	@Override
 	@DELETE
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteBook(Book book) {
 		try {
-			daoManager.getBookDao().deleteBook(book);
+			bookDao.deleteBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

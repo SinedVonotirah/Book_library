@@ -2,29 +2,28 @@ package by.vonotirah.booklibrary.web_app.soap;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.jws.WebService;
 
+import by.vonotirah.booklibrary.persistence.BookDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.BookWebService;
-import by.vonotirah.booklibrary.web_app.DaoManagerWebService;
 
 @WebService(endpointInterface = "by.vonotirah.booklibrary.web_app.BookWebService")
 public class BookSoapService implements BookWebService {
 
-	private DaoManagerWebService daoManager;
+	private BookDao bookDao;
 
 	public BookSoapService() {
 		super();
-		daoManager = new DaoManagerSoapService();
+		bookDao = DaoManagerSoapService.getBookDao();
 	}
 
 	@Override
 	public void createBook(Book book) {
 		try {
-			daoManager.getBookDao().createBook(book);
+			bookDao.createBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -33,7 +32,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public void updateBook(Book book) {
 		try {
-			daoManager.getBookDao().updateBook(book);
+			bookDao.updateBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +41,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public void assignBook(Book book, User user) {
 		try {
-			daoManager.getBookDao().assignBook(book, user);
+			bookDao.assignBook(book, user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +50,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public Book getBookById(String id) {
 		try {
-			return daoManager.getBookDao().getBookById(id);
+			return bookDao.getBookById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,7 +60,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public Book getBookByName(String name) {
 		try {
-			return daoManager.getBookDao().getBookByName(name);
+			return bookDao.getBookByName(name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -71,7 +70,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public void passBook(Book book) {
 		try {
-			daoManager.getBookDao().passBook(book);
+			bookDao.passBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +79,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public ArrayList<Book> getAllBooks() {
 		try {
-			return (ArrayList<Book>) daoManager.getBookDao().getAllBooks();
+			return (ArrayList<Book>) bookDao.getAllBooks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,7 +89,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public ArrayList<Book> getAllFreeBooks() {
 		try {
-			return (ArrayList<Book>) daoManager.getBookDao().getAllFreeBooks();
+			return (ArrayList<Book>) bookDao.getAllFreeBooks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,7 +99,7 @@ public class BookSoapService implements BookWebService {
 	@Override
 	public void deleteBook(Book book) {
 		try {
-			daoManager.getBookDao().deleteBook(book);
+			bookDao.deleteBook(book);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -12,28 +12,26 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.DaoManagerWebService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
-import by.vonotirah.booklibrary.web_app.soap.DaoManagerSoapService;
 
 @Path("/user")
 public class UserRestService implements UserWebService {
 
-	private DaoManagerWebService daoManager;
+	private UserDao userDao;
 
 	public UserRestService() {
 		super();
-		daoManager = new DaoManagerSoapService();
+		userDao = DaoManagerRestService.getUserDao();
 	}
 
 	@Override
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createUser(User user) {
 		try {
-			daoManager.getUserDao().createUser(user);
+			userDao.createUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +44,7 @@ public class UserRestService implements UserWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserById(@PathParam("id") String id) {
 		try {
-			return daoManager.getUserDao().getUserById(id);
+			return userDao.getUserById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -60,7 +58,7 @@ public class UserRestService implements UserWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserByLastName(@PathParam("last_name") String lastName) {
 		try {
-			return daoManager.getUserDao().getUserByLastName(lastName);
+			return userDao.getUserByLastName(lastName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,11 +67,10 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@PUT
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateUser(User user) {
 		try {
-			daoManager.getUserDao().updateUser(user);
+			userDao.updateUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,11 +78,10 @@ public class UserRestService implements UserWebService {
 
 	@Override
 	@DELETE
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteUser(User user) {
 		try {
-			daoManager.getUserDao().deleteUser(user);
+			userDao.deleteUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

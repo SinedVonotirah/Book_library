@@ -11,10 +11,6 @@ import by.vonotirah.booklibrary.persistence.UserDao;
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface DaoManagerWebService {
 
-	BookDao getBookDao();
-
-	UserDao getUserDao();
-
 	@WebMethod
 	void changeDb(String db);
 }

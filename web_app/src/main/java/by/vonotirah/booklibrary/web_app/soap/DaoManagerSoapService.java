@@ -10,11 +10,10 @@ import by.vonotirah.booklibrary.web_app.DaoManagerWebService;
 @WebService(endpointInterface = "by.vonotirah.booklibrary.web_app.DaoManagerWebService")
 public class DaoManagerSoapService implements DaoManagerWebService {
 
-	private BookDao bookDao;
-	private UserDao userDao;
+	private static BookDao bookDao;
+	private static UserDao userDao;
 
-	public DaoManagerSoapService() {
-		super();
+	static {
 		bookDao = FactoryContext.getFactory("SQL").getBookDao();
 		userDao = FactoryContext.getFactory("SQL").getUserDao();
 	}
@@ -25,13 +24,11 @@ public class DaoManagerSoapService implements DaoManagerWebService {
 		userDao = FactoryContext.getFactory(db).getUserDao();
 	}
 
-	@Override
-	public BookDao getBookDao() {
+	public static BookDao getBookDao() {
 		return bookDao;
 	}
 
-	@Override
-	public UserDao getUserDao() {
+	public static UserDao getUserDao() {
 		return userDao;
 	}
 
