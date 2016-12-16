@@ -44,17 +44,19 @@ public class UserRestServiceUnitTest extends AbstractTest {
 	@Test
 	public void getUserByIdSoapUnitTest() throws SQLException {
 		UserWebService userService = new UserRestService();
-		userService.getUserById(Mockito.anyString());
+		// userService.getUserById(Mockito.anyString());
+		userService.getUserById(new String());
 
-		verify(mockedUserDao).getUserById(Mockito.anyString());
+		verify(mockedUserDao).getUserById(new String());
 	}
 
 	@Test
 	public void getUsetByLastNameSoapUnitTest() throws SQLException {
 		UserWebService userService = new UserRestService();
-		userService.getUserByLastName(Mockito.anyString());
+		// userService.getUserByLastName(Mockito.anyString());
+		userService.getUserByLastName(new String());
 
-		verify(mockedUserDao).getUserByLastName(Mockito.anyString());
+		verify(mockedUserDao).getUserByLastName(new String());
 
 	}
 

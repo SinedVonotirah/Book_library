@@ -12,18 +12,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.UserWebService;
 
 @Path("/user")
 public class UserRestService implements UserWebService {
 
-	private UserDao userDao;
-
 	public UserRestService() {
 		super();
-		userDao = DaoManagerRestService.getUserDao();
 	}
 
 	@Override
@@ -31,7 +27,7 @@ public class UserRestService implements UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createUser(User user) {
 		try {
-			userDao.createUser(user);
+			DaoManagerRestService.getUserDao().createUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +40,7 @@ public class UserRestService implements UserWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserById(@PathParam("id") String id) {
 		try {
-			return userDao.getUserById(id);
+			return DaoManagerRestService.getUserDao().getUserById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +54,7 @@ public class UserRestService implements UserWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserByLastName(@PathParam("last_name") String lastName) {
 		try {
-			return userDao.getUserByLastName(lastName);
+			return DaoManagerRestService.getUserDao().getUserByLastName(lastName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,7 +66,7 @@ public class UserRestService implements UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateUser(User user) {
 		try {
-			userDao.updateUser(user);
+			DaoManagerRestService.getUserDao().updateUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +77,7 @@ public class UserRestService implements UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteUser(User user) {
 		try {
-			userDao.deleteUser(user);
+			DaoManagerRestService.getUserDao().deleteUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

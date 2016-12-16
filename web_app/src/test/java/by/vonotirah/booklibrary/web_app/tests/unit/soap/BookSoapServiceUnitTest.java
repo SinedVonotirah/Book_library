@@ -65,17 +65,19 @@ public class BookSoapServiceUnitTest extends AbstractTest {
 	@Test
 	public void getBookByIdSoapUnitTest() throws SQLException {
 		BookWebService bookService = new BookSoapService();
-		bookService.getBookById(Mockito.anyString());
+		// bookService.getBookById(Mockito.anyString());
+		bookService.getBookById(new String());
 
-		verify(mockedBookDao).getBookById(Mockito.anyString());
+		verify(mockedBookDao).getBookById(new String());
 	}
 
 	@Test
 	public void getBookByNameSoapUnitTest() throws SQLException {
 		BookWebService bookService = new BookSoapService();
-		bookService.getBookByName(Mockito.anyString());
+		// bookService.getBookByName(Mockito.anyString());
+		bookService.getBookByName(new String());
 
-		verify(mockedBookDao).getBookByName(Mockito.anyString());
+		verify(mockedBookDao).getBookByName(new String());
 	}
 
 	@Test
