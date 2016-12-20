@@ -14,22 +14,23 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
+import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
-import by.vonotirah.booklibrary.web_app.soap.DaoManagerSoapService;
+import by.vonotirah.booklibrary.web_app.soap.SoapServiceManager;
 import by.vonotirah.booklibrary.web_app.soap.UserSoapService;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(DaoManagerSoapService.class)
+@PrepareForTest(SoapServiceManager.class)
 public class UserSoapServiceUnitTest extends AbstractTest {
 
-	private UserDao mockedUserDao;
+	private UserService mockedUserService;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(DaoManagerSoapService.class);
-		mockedUserDao = Mockito.mock(UserDao.class);
-		PowerMockito.when(DaoManagerSoapService.getUserDao()).thenReturn(mockedUserDao);
+		PowerMockito.mockStatic(SoapServiceManager.class);
+		mockedUserService = Mockito.mock(UserService.class);
+		PowerMockito.when(SoapServiceManager.getUserService()).thenReturn(mockedUserService);
 	}
 
 	@Test
@@ -38,7 +39,7 @@ public class UserSoapServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.createUser(user);
 
-		verify(mockedUserDao).createUser(user);
+		verify(mockedUserService).createUser(user);
 	}
 
 	@Test
@@ -47,7 +48,7 @@ public class UserSoapServiceUnitTest extends AbstractTest {
 		// userService.getUserById(Mockito.anyString());
 		userService.getUserById(new String());
 
-		verify(mockedUserDao).getUserById(new String());
+		verify(mockedUserService).getUserById(new String());
 	}
 
 	@Test
@@ -56,7 +57,7 @@ public class UserSoapServiceUnitTest extends AbstractTest {
 		// userService.getUserByLastName(Mockito.anyString());
 		userService.getUserByLastName(new String());
 
-		verify(mockedUserDao).getUserByLastName(new String());
+		verify(mockedUserService).getUserByLastName(new String());
 
 	}
 
@@ -66,7 +67,7 @@ public class UserSoapServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.updateUser(user);
 
-		verify(mockedUserDao).updateUser(user);
+		verify(mockedUserService).updateUser(user);
 	}
 
 	@Test
@@ -75,6 +76,6 @@ public class UserSoapServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.deleteUser(user);
 
-		verify(mockedUserDao).deleteUser(user);
+		verify(mockedUserService).deleteUser(user);
 	}
 }

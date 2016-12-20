@@ -25,7 +25,6 @@ public class BookRestService implements BookWebService {
 	public BookRestService() {
 		super();
 		bookService = RestServiceManager.getBookService();
-		System.out.println(bookService);
 	}
 
 	@Override

@@ -12,24 +12,24 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
+import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
-import by.vonotirah.booklibrary.web_app.rest.DaoManagerRestService;
+import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
 import by.vonotirah.booklibrary.web_app.rest.UserRestService;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(DaoManagerRestService.class)
+@PrepareForTest(RestServiceManager.class)
 public class UserRestServiceUnitTest extends AbstractTest {
 
-	private UserDao mockedUserDao;
+	private UserService mockedUserService;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(DaoManagerRestService.class);
-		mockedUserDao = Mockito.mock(UserDao.class);
-		PowerMockito.when(DaoManagerRestService.getUserDao()).thenReturn(mockedUserDao);
+		PowerMockito.mockStatic(RestServiceManager.class);
+		mockedUserService = Mockito.mock(UserService.class);
+		PowerMockito.when(RestServiceManager.getUserService()).thenReturn(mockedUserService);
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class UserRestServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.createUser(user);
 
-		verify(mockedUserDao).createUser(user);
+		verify(mockedUserService).createUser(user);
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class UserRestServiceUnitTest extends AbstractTest {
 		// userService.getUserById(Mockito.anyString());
 		userService.getUserById(new String());
 
-		verify(mockedUserDao).getUserById(new String());
+		verify(mockedUserService).getUserById(new String());
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class UserRestServiceUnitTest extends AbstractTest {
 		// userService.getUserByLastName(Mockito.anyString());
 		userService.getUserByLastName(new String());
 
-		verify(mockedUserDao).getUserByLastName(new String());
+		verify(mockedUserService).getUserByLastName(new String());
 
 	}
 
@@ -66,7 +66,7 @@ public class UserRestServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.updateUser(user);
 
-		verify(mockedUserDao).updateUser(user);
+		verify(mockedUserService).updateUser(user);
 	}
 
 	@Test
@@ -75,6 +75,6 @@ public class UserRestServiceUnitTest extends AbstractTest {
 		User user = getRandomUserObject();
 		userService.deleteUser(user);
 
-		verify(mockedUserDao).deleteUser(user);
+		verify(mockedUserService).deleteUser(user);
 	}
 }

@@ -25,7 +25,7 @@ public class RestServiceManager implements ServiceManager {
 
 	@Override
 	@PUT
-	@Path("{db}")
+	@Path("/book/{db}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void changeBookDb(@PathParam("db") String db) {
 		if (db.equalsIgnoreCase(SQL_DB)) {
@@ -38,7 +38,7 @@ public class RestServiceManager implements ServiceManager {
 
 	@Override
 	@PUT
-	@Path("{db}")
+	@Path("/user{db}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void changeUserDb(@PathParam("db") String db) {
 		if (db.equalsIgnoreCase(SQL_DB)) {
