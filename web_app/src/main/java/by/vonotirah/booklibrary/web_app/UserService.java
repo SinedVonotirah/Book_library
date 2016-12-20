@@ -2,7 +2,7 @@ package by.vonotirah.booklibrary.web_app;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
 
-public interface UserWebService {
+public interface UserService {
 
 	void createUser(User user);
 

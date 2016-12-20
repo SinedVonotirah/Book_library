@@ -14,7 +14,7 @@ import by.vonotirah.booklibrary.persistence.BookDao;
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.persistence.factory.FactoryContext;
+import by.vonotirah.booklibrary.persistence.factory.DaoFactoryContext;
 import by.vonotirah.booklibrary.persistence.tests.AbstractTest;
 
 public class SqlBookDaoIntegrationTest extends AbstractTest {
@@ -26,7 +26,7 @@ public class SqlBookDaoIntegrationTest extends AbstractTest {
 
 	@Before
 	public void setUp() {
-		bookDao = FactoryContext.getFactory("SQL").getBookDao();
+		bookDao = DaoFactoryContext.getFactory("SQL").getBookDao();
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class SqlBookDaoIntegrationTest extends AbstractTest {
 
 	@Test
 	public void assignBookTest() throws Exception {
-		UserDao userDao = FactoryContext.getFactory("SQL").getUserDao();
+		UserDao userDao = DaoFactoryContext.getFactory("SQL").getUserDao();
 
 		Book book = getRandomBookObject();
 		User user = getRandomUserObject();

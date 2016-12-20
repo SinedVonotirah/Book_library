@@ -1,63 +1,51 @@
 package by.vonotirah.booklibrary.web_app.soap;
 
-import java.sql.SQLException;
-
+import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
+import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
 
-@WebService(endpointInterface = "by.vonotirah.booklibrary.web_app.UserWebService")
+@WebService
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public class UserSoapService implements UserWebService {
+
+	private UserService userService;
 
 	public UserSoapService() {
 		super();
+		userService = SoapServiceManager.getUserService();
 	}
 
 	@Override
+	@WebMethod
 	public void createUser(User user) {
-		try {
-			DaoManagerSoapService.getUserDao().createUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.createUser(user);
 	}
 
 	@Override
+	@WebMethod
 	public User getUserById(String id) {
-		try {
-			return DaoManagerSoapService.getUserDao().getUserById(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userService.getUserById(id);
 	}
 
 	@Override
+	@WebMethod
 	public User getUserByLastName(String lastName) {
-		try {
-			return DaoManagerSoapService.getUserDao().getUserByLastName(lastName);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userService.getUserByLastName(lastName);
 	}
 
 	@Override
+	@WebMethod
 	public void updateUser(User user) {
-		try {
-			DaoManagerSoapService.getUserDao().updateUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.updateUser(user);
 	}
 
 	@Override
+	@WebMethod
 	public void deleteUser(User user) {
-		try {
-			DaoManagerSoapService.getUserDao().deleteUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.deleteUser(user);
 	}
 }

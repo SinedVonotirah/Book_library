@@ -1,104 +1,79 @@
 package by.vonotirah.booklibrary.web_app.soap;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
+import by.vonotirah.booklibrary.web_app.BookService;
 import by.vonotirah.booklibrary.web_app.BookWebService;
 
-@WebService(endpointInterface = "by.vonotirah.booklibrary.web_app.BookWebService")
+@WebService
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public class BookSoapService implements BookWebService {
+
+	private BookService bookService;
 
 	public BookSoapService() {
 		super();
+		bookService = SoapServiceManager.getBookService();
 	}
 
 	@Override
+	@WebMethod
 	public void createBook(Book book) {
-		try {
-			DaoManagerSoapService.getBookDao().createBook(book);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		bookService.createBook(book);
 	}
 
 	@Override
+	@WebMethod
 	public void updateBook(Book book) {
-		try {
-			DaoManagerSoapService.getBookDao().updateBook(book);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		bookService.updateBook(book);
 	}
 
 	@Override
+	@WebMethod
 	public void assignBook(Book book, User user) {
-		try {
-			DaoManagerSoapService.getBookDao().assignBook(book, user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		bookService.assignBook(book, user);
 	}
 
 	@Override
+	@WebMethod
 	public Book getBookById(String id) {
-		try {
-			return DaoManagerSoapService.getBookDao().getBookById(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return bookService.getBookById(id);
 	}
 
 	@Override
+	@WebMethod
 	public Book getBookByName(String name) {
-		try {
-			return DaoManagerSoapService.getBookDao().getBookByName(name);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return bookService.getBookByName(name);
 	}
 
 	@Override
+	@WebMethod
 	public void passBook(Book book) {
-		try {
-			DaoManagerSoapService.getBookDao().passBook(book);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		bookService.passBook(book);
 	}
 
 	@Override
+	@WebMethod
 	public ArrayList<Book> getAllBooks() {
-		try {
-			return (ArrayList<Book>) DaoManagerSoapService.getBookDao().getAllBooks();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return bookService.getAllBooks();
 	}
 
 	@Override
+	@WebMethod
 	public ArrayList<Book> getAllFreeBooks() {
-		try {
-			return (ArrayList<Book>) DaoManagerSoapService.getBookDao().getAllFreeBooks();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return bookService.getAllFreeBooks();
 	}
 
 	@Override
+	@WebMethod
 	public void deleteBook(Book book) {
-		try {
-			DaoManagerSoapService.getBookDao().deleteBook(book);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		bookService.deleteBook(book);
 	}
 
 }

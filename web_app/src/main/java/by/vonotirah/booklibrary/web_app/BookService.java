@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
 
-public interface BookWebService {
+public interface BookService {
 
 	void createBook(Book book);
 

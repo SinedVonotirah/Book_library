@@ -1,7 +1,5 @@
 package by.vonotirah.booklibrary.web_app.rest;
 
-import java.sql.SQLException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,24 +11,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
+import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
 
 @Path("/user")
 public class UserRestService implements UserWebService {
 
+	private UserService userService;
+
 	public UserRestService() {
 		super();
+		userService = RestServiceManager.getUserService();
 	}
 
 	@Override
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createUser(User user) {
-		try {
-			DaoManagerRestService.getUserDao().createUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.createUser(user);
 	}
 
 	@Override
@@ -39,12 +37,7 @@ public class UserRestService implements UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserById(@PathParam("id") String id) {
-		try {
-			return DaoManagerRestService.getUserDao().getUserById(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userService.getUserById(id);
 	}
 
 	@Override
@@ -53,34 +46,21 @@ public class UserRestService implements UserWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserByLastName(@PathParam("last_name") String lastName) {
-		try {
-			return DaoManagerRestService.getUserDao().getUserByLastName(lastName);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return userService.getUserByLastName(lastName);
 	}
 
 	@Override
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateUser(User user) {
-		try {
-			DaoManagerRestService.getUserDao().updateUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.updateUser(user);
 	}
 
 	@Override
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deleteUser(User user) {
-		try {
-			DaoManagerRestService.getUserDao().deleteUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		userService.deleteUser(user);
 	}
 
 }

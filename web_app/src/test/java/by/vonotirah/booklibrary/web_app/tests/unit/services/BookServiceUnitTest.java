@@ -1,4 +1,4 @@
-package by.vonotirah.booklibrary.web_app.tests.unit.rest;
+package by.vonotirah.booklibrary.web_app.tests.unit.services;
 
 import static org.mockito.Mockito.verify;
 
@@ -15,27 +15,28 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import by.vonotirah.booklibrary.persistence.BookDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookWebService;
-import by.vonotirah.booklibrary.web_app.rest.BookRestService;
-import by.vonotirah.booklibrary.web_app.rest.DaoManagerRestService;
+import by.vonotirah.booklibrary.web_app.BookService;
+import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
+import by.vonotirah.booklibrary.web_app.services.BookServiceImpl;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(DaoManagerRestService.class)
-public class BookRestServiceUnitTest extends AbstractTest {
+@PrepareForTest(RestServiceManager.class)
+public class BookServiceUnitTest extends AbstractTest {
 
 	private BookDao mockedBookDao;
+	private BookService bookService;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(DaoManagerRestService.class);
+		PowerMockito.mockStatic(RestServiceManager.class);
 		mockedBookDao = Mockito.mock(BookDao.class);
-		PowerMockito.when(DaoManagerRestService.getBookDao()).thenReturn(mockedBookDao);
+
+		bookService = new BookServiceImpl(mockedBookDao);
 	}
 
 	@Test
 	public void createBookSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		Book book = getRandomBookObject();
 		bookService.createBook(book);
 
@@ -44,7 +45,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void updateBookSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		Book book = getRandomBookObject();
 		bookService.updateBook(book);
 
@@ -53,7 +53,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void assignBookSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		Book book = getRandomBookObject();
 		User user = getRandomUserObject();
 		bookService.assignBook(book, user);
@@ -64,7 +63,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void getBookByIdSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		// bookService.getBookById(Mockito.anyString());
 		bookService.getBookById(new String());
 
@@ -73,7 +71,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void getBookByNameSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		// bookService.getBookByName(Mockito.anyString());
 		bookService.getBookByName(new String());
 
@@ -82,7 +79,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void passBookSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		Book book = getRandomBookObject();
 		bookService.passBook(book);
 
@@ -91,7 +87,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	// @Test
 	public void getAllBooksSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		bookService.getAllBooks();
 
 		verify(mockedBookDao).getAllBooks();
@@ -99,7 +94,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	// @Test
 	public void getAllFreeBooksSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		bookService.getAllFreeBooks();
 
 		verify(mockedBookDao).getAllFreeBooks();
@@ -107,7 +101,6 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	@Test
 	public void deleteBookSoapUnitTest() throws SQLException {
-		BookWebService bookService = new BookRestService();
 		Book book = getRandomBookObject();
 		bookService.deleteBook(book);
 
