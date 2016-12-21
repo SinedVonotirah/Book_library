@@ -2,12 +2,12 @@ package by.vonotirah.booklibrary.persistence.factory;
 
 import by.vonotirah.booklibrary.persistence.DaoFactory;
 
-public class FactoryContext {
+public class DaoFactoryContext {
 
 	private static SqlDaoFactory sqlDaoFactory;
 	private static NoSqlDaoFactory nosqlDaoFactory;
 
-	private FactoryContext() {
+	private DaoFactoryContext() {
 
 	}
 
@@ -25,5 +25,4 @@ public class FactoryContext {
 		}
 		return null;
 	}
-
 }

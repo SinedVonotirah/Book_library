@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+    version="2.0">
+
+        
+    <endpoint name="CreateBook" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/createBook" />    
+    <endpoint name="UpdateBook" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/updateBook" />      
+    <endpoint name="AssignBook" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/assignBook" />           
+    <endpoint name="GetBookById" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/getBookById" />    
+    <endpoint name="GetBookByName" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/getBookByName" />      
+    <endpoint name="PassBook" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/passBook" />      
+    <endpoint name="GetAllBooks" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/getAllBooks" />    
+    <endpoint name="GetAllFreeBooks" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/getAllFreeBooks" />      
+    <endpoint name="DeleteBook" implementation="by.vonotirah.booklibrary.web_app.soap.BookSoapService"
+        url-pattern="/soap/deleteBook" />  
+	<endpoint name="CreateUser" implementation="by.vonotirah.booklibrary.web_app.soap.UserSoapService"
+        url-pattern="/soap/createUser" />  
+    <endpoint name="GetUserById" implementation="by.vonotirah.booklibrary.web_app.soap.UserSoapService"
+        url-pattern="/soap/getUserById" />  
+    <endpoint name="GetUserByLastName" implementation="by.vonotirah.booklibrary.web_app.soap.UserSoapService"
+        url-pattern="/soap/getUserByLastName" />  
+    <endpoint name="UpdateUser" implementation="by.vonotirah.booklibrary.web_app.soap.UserSoapService"
+        url-pattern="/soap/updateUser" />  
+    <endpoint name="DeleteUser" implementation="by.vonotirah.booklibrary.web_app.soap.UserSoapService"
+        url-pattern="/soap/deleteUser" /> 
+</endpoints>
