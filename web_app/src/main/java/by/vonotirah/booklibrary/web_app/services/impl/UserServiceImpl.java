@@ -1,18 +1,22 @@
-package by.vonotirah.booklibrary.web_app.services;
+package by.vonotirah.booklibrary.web_app.services.impl;
 
 import java.sql.SQLException;
 
+import by.vonotirah.booklibrary.persistence.DaoFactory;
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.DynamicDaoListener;
+import by.vonotirah.booklibrary.web_app.services.UserService;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, DynamicDaoListener {
 
 	private UserDao userDao;
-
-	public UserServiceImpl(UserDao userDao) {
-		super();
-		this.userDao = userDao;
+	private AppContext context;
+	
+	public UserServiceImpl(AppContext context) {
+		this.context = context;
+		this.userDao = ((DaoFactory)context.getBean(AppContext.DAO_FACTORY_KEY)).getUserDao();
 	}
 
 	@Override
@@ -63,6 +67,11 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void onDaoChange() {
+		this.userDao = ((DaoFactory)context.getBean(AppContext.DAO_FACTORY_KEY)).getUserDao();
 	}
 
 }

@@ -1,4 +1,4 @@
-package by.vonotirah.booklibrary.web_app;
+package by.vonotirah.booklibrary.web_app.services;
 
 import java.util.ArrayList;
 

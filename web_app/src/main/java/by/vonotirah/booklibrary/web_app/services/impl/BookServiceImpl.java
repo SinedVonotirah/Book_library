@@ -1,22 +1,26 @@
-package by.vonotirah.booklibrary.web_app.services;
+package by.vonotirah.booklibrary.web_app.services.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import by.vonotirah.booklibrary.persistence.BookDao;
+import by.vonotirah.booklibrary.persistence.DaoFactory;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
+import by.vonotirah.booklibrary.web_app.services.DynamicDaoListener;
 
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService, DynamicDaoListener {
 
 	private BookDao bookDao;
+	private AppContext context;
 
-	public BookServiceImpl(BookDao bookDao) {
-		super();
-		this.bookDao = bookDao;
+	public BookServiceImpl(AppContext context) {
+		this.context = context;
+		this.bookDao = ((DaoFactory)context.getBean(AppContext.DAO_FACTORY_KEY)).getBookDao();
 	}
-
+	
 	@Override
 	public void createBook(Book book) {
 		try {
@@ -106,4 +110,10 @@ public class BookServiceImpl implements BookService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public void onDaoChange() {
+		this.bookDao = ((DaoFactory)context.getBean(AppContext.DAO_FACTORY_KEY)).getBookDao();
+	}
+
 }

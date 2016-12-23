@@ -1,4 +1,4 @@
-package by.vonotirah.booklibrary.web_app;
+package by.vonotirah.booklibrary.web_app.services;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
 

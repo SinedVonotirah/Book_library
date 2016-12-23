@@ -14,8 +14,9 @@ import javax.ws.rs.core.MediaType;
 
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
 import by.vonotirah.booklibrary.web_app.BookWebService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
 
 @Path("/book")
 public class BookRestService implements BookWebService {
@@ -23,8 +24,7 @@ public class BookRestService implements BookWebService {
 	private BookService bookService;
 
 	public BookRestService() {
-		super();
-		bookService = RestServiceManager.getBookService();
+		this.bookService = (BookService)AppContext.getInstance().getBean(AppContext.BOOK_SERVICE_KEY);
 	}
 
 	@Override

@@ -11,8 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.UserService;
 
 @Path("/user")
 public class UserRestService implements UserWebService {
@@ -20,8 +21,7 @@ public class UserRestService implements UserWebService {
 	private UserService userService;
 
 	public UserRestService() {
-		super();
-		userService = RestServiceManager.getUserService();
+		this.userService = (UserService)AppContext.getInstance().getBean(AppContext.USER_SERVICE_KEY);
 	}
 
 	@Override

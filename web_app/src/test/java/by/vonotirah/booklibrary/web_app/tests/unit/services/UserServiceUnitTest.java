@@ -14,9 +14,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
-import by.vonotirah.booklibrary.web_app.services.UserServiceImpl;
+import by.vonotirah.booklibrary.web_app.services.UserService;
+import by.vonotirah.booklibrary.web_app.services.impl.UserServiceImpl;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
@@ -26,14 +26,14 @@ public class UserServiceUnitTest extends AbstractTest {
 	private UserDao mockedUserDao;
 	private UserService userService;
 
-	@Before
+/*	@Before
 	public void setUp() {
 		PowerMockito.mockStatic(RestServiceManager.class);
 		mockedUserDao = Mockito.mock(UserDao.class);
 
 		userService = new UserServiceImpl(mockedUserDao);
 	}
-
+*/
 	@Test
 	public void createUserSoapUnitTest() throws SQLException {
 		User user = getRandomUserObject();

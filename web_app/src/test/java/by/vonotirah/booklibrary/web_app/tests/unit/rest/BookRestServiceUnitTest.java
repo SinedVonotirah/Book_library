@@ -15,9 +15,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
-import by.vonotirah.booklibrary.web_app.BookService;
 import by.vonotirah.booklibrary.web_app.BookWebService;
 import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
+import by.vonotirah.booklibrary.web_app.services.BookService;
 import by.vonotirah.booklibrary.web_app.rest.BookRestService;
 
 @RunWith(PowerMockRunner.class)
@@ -26,13 +26,13 @@ public class BookRestServiceUnitTest extends AbstractTest {
 
 	private BookService mockedBookService;
 
-	@Before
+/*	@Before
 	public void setUp() {
 		PowerMockito.mockStatic(RestServiceManager.class);
 		mockedBookService = Mockito.mock(BookService.class);
 		PowerMockito.when(RestServiceManager.getBookService()).thenReturn(mockedBookService);
 	}
-
+*/
 	@Test
 	public void createBookSoapUnitTest() throws SQLException {
 		BookWebService bookService = new BookRestService();
