@@ -8,14 +8,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
 import by.vonotirah.booklibrary.web_app.BookWebService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
 import by.vonotirah.booklibrary.web_app.soap.BookSoapService;
 import by.vonotirah.booklibrary.web_app.soap.SoapServiceManager;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
@@ -25,12 +25,13 @@ import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 public class BookSoapServiceUnitTest extends AbstractTest {
 
 	private BookService mockedBookService;
+	private AppContext context;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(SoapServiceManager.class);
+		context = AppContext.getInstance();
 		mockedBookService = Mockito.mock(BookService.class);
-		PowerMockito.when(SoapServiceManager.getBookService()).thenReturn(mockedBookService);
+		context.registrBean(AppContext.BOOK_SERVICE_KEY, mockedBookService);
 	}
 
 	@Test

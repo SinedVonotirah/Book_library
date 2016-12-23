@@ -13,10 +13,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
 import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
 import by.vonotirah.booklibrary.web_app.rest.UserRestService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.UserService;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
@@ -24,12 +25,14 @@ import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 public class UserRestServiceUnitTest extends AbstractTest {
 
 	private UserService mockedUserService;
+	private AppContext context;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(RestServiceManager.class);
+		context = AppContext.getInstance();
 		mockedUserService = Mockito.mock(UserService.class);
-		PowerMockito.when(RestServiceManager.getUserService()).thenReturn(mockedUserService);
+		context.registrBean(AppContext.USER_SERVICE_KEY, mockedUserService);
+
 	}
 
 	@Test

@@ -8,31 +8,33 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.BookDao;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
-import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
-import by.vonotirah.booklibrary.web_app.services.BookServiceImpl;
+import by.vonotirah.booklibrary.persistence.factory.SqlDaoFactory;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
+import by.vonotirah.booklibrary.web_app.services.impl.BookServiceImpl;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(RestServiceManager.class)
 public class BookServiceUnitTest extends AbstractTest {
 
 	private BookDao mockedBookDao;
 	private BookService bookService;
+	private SqlDaoFactory mockedSqlDaoFactory;
+	private AppContext context;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(RestServiceManager.class);
+		context = AppContext.getInstance();
 		mockedBookDao = Mockito.mock(BookDao.class);
-
-		bookService = new BookServiceImpl(mockedBookDao);
+		mockedSqlDaoFactory = Mockito.mock(SqlDaoFactory.class);
+		context.registrBean(AppContext.DAO_FACTORY_KEY, mockedSqlDaoFactory);
+		Mockito.when(mockedSqlDaoFactory.getBookDao()).thenReturn(mockedBookDao);
+		bookService = new BookServiceImpl(context);
 	}
 
 	@Test

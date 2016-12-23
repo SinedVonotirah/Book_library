@@ -1,20 +1,30 @@
-package by.vonotirah.booklibrary.web_app.services;
+package by.vonotirah.booklibrary.web_app.services.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import by.vonotirah.booklibrary.persistence.BookDao;
+import by.vonotirah.booklibrary.persistence.DaoFactory;
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
+import by.vonotirah.booklibrary.web_app.services.DynamicDaoListener;
 
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService, DynamicDaoListener {
 
 	private BookDao bookDao;
+	private AppContext context;
 
-	public BookServiceImpl(BookDao bookDao) {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
+
+	public BookServiceImpl(AppContext context) {
 		super();
-		this.bookDao = bookDao;
+		this.context = context;
+		this.bookDao = ((DaoFactory) context.getBean(AppContext.DAO_FACTORY_KEY)).getBookDao();
 	}
 
 	@Override
@@ -22,7 +32,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			bookDao.createBook(book);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -32,7 +42,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			bookDao.updateBook(book);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -42,7 +52,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			bookDao.assignBook(book, user);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -52,7 +62,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			return bookDao.getBookById(id);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -62,7 +72,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			return bookDao.getBookByName(name);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -72,7 +82,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			bookDao.passBook(book);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -82,7 +92,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			return (ArrayList<Book>) bookDao.getAllBooks();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -92,7 +102,7 @@ public class BookServiceImpl implements BookService {
 		try {
 			return (ArrayList<Book>) bookDao.getAllFreeBooks();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
 	}
@@ -102,8 +112,13 @@ public class BookServiceImpl implements BookService {
 		try {
 			bookDao.deleteBook(book);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception" + e.toString());
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void onDaoChange() {
+		this.bookDao = ((DaoFactory) context.getBean(AppContext.DAO_FACTORY_KEY)).getBookDao();
 	}
 }

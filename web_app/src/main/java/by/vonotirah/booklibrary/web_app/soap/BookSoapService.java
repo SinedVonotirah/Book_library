@@ -8,8 +8,9 @@ import javax.jws.soap.SOAPBinding;
 
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.BookService;
 import by.vonotirah.booklibrary.web_app.BookWebService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.BookService;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
@@ -19,7 +20,7 @@ public class BookSoapService implements BookWebService {
 
 	public BookSoapService() {
 		super();
-		bookService = SoapServiceManager.getBookService();
+		bookService = (BookService) AppContext.getInstance().getBean(AppContext.BOOK_SERVICE_KEY);
 	}
 
 	@Override

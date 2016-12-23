@@ -8,15 +8,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
+import by.vonotirah.booklibrary.persistence.factory.SqlDaoFactory;
 import by.vonotirah.booklibrary.web_app.rest.RestServiceManager;
-import by.vonotirah.booklibrary.web_app.services.UserServiceImpl;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.UserService;
+import by.vonotirah.booklibrary.web_app.services.impl.UserServiceImpl;
 import by.vonotirah.booklibrary.web_app.tests.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
@@ -25,13 +26,17 @@ public class UserServiceUnitTest extends AbstractTest {
 
 	private UserDao mockedUserDao;
 	private UserService userService;
+	private SqlDaoFactory mockedSqlDaoFactory;
+	private AppContext context;
 
 	@Before
 	public void setUp() {
-		PowerMockito.mockStatic(RestServiceManager.class);
+		context = AppContext.getInstance();
 		mockedUserDao = Mockito.mock(UserDao.class);
-
-		userService = new UserServiceImpl(mockedUserDao);
+		mockedSqlDaoFactory = Mockito.mock(SqlDaoFactory.class);
+		context.registrBean(AppContext.DAO_FACTORY_KEY, mockedSqlDaoFactory);
+		Mockito.when(mockedSqlDaoFactory.getUserDao()).thenReturn(mockedUserDao);
+		userService = new UserServiceImpl(context);
 	}
 
 	@Test

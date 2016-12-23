@@ -5,8 +5,9 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.web_app.UserService;
 import by.vonotirah.booklibrary.web_app.UserWebService;
+import by.vonotirah.booklibrary.web_app.services.AppContext;
+import by.vonotirah.booklibrary.web_app.services.UserService;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
@@ -16,7 +17,7 @@ public class UserSoapService implements UserWebService {
 
 	public UserSoapService() {
 		super();
-		userService = SoapServiceManager.getUserService();
+		userService = (UserService) AppContext.getInstance().getBean(AppContext.USER_SERVICE_KEY);
 	}
 
 	@Override
