@@ -39,6 +39,11 @@
 	    <groupId>com.mockrunner</groupId>
 	    <artifactId>mockrunner-jdbc</artifactId>
 	    <version>1.1.2</version>
+	</dependency>	
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>5.3.4.Final</version>
 	</dependency>
 				
   </dependencies>
