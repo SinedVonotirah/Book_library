@@ -1,0 +1,6 @@
+rootProject.name = 'booklibrary'
+include ':persistence_layer'
+include ':web_app'
+
+project(':persistence_layer').projectDir = "$rootDir/persistence_layer" as File
+project(':web_app').projectDir = "$rootDir/web_app" as File
