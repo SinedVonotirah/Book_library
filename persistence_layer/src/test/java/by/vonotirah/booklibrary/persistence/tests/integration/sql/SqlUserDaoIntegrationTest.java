@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import by.vonotirah.booklibrary.persistence.UserDao;
 import by.vonotirah.booklibrary.persistence.domain.User;
-import by.vonotirah.booklibrary.persistence.factory.FactoryContext;
+import by.vonotirah.booklibrary.persistence.factory.DaoFactoryContext;
 import by.vonotirah.booklibrary.persistence.tests.AbstractTest;
 
 public class SqlUserDaoIntegrationTest extends AbstractTest {
@@ -21,7 +21,7 @@ public class SqlUserDaoIntegrationTest extends AbstractTest {
 
 	@Before
 	public void setUp() {
-		sqlUserDao = FactoryContext.getFactory("SQL").getUserDao();
+		sqlUserDao = DaoFactoryContext.getFactory("SQL").getUserDao();
 	}
 
 	@Test
