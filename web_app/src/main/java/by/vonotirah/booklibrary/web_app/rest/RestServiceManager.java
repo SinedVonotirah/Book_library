@@ -5,10 +5,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Component;
+
 import by.vonotirah.booklibrary.web_app.ServiceManager;
 import by.vonotirah.booklibrary.web_app.services.AppContext;
 import by.vonotirah.booklibrary.web_app.services.DbUtilService;
 
+@Component
 @Path("/setup")
 public class RestServiceManager implements ServiceManager {
 

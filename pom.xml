@@ -9,6 +9,13 @@
     <module>persistence_layer</module>
     <module>web_app</module>
   </modules>
+  
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.3.RELEASE</version>
+        <relativePath/>
+    </parent>
   	<dependencies>
   		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -64,7 +71,11 @@
 		            <exclude>**/tests/integration/**</exclude>
 		          </excludes>
 		        </configuration>
-      	</plugin>
+      		</plugin>
+	        <plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	        </plugin>
 		</plugins>
 	</build>
 </project>

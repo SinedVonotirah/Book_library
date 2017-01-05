@@ -12,12 +12,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Component;
+
 import by.vonotirah.booklibrary.persistence.domain.Book;
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.BookWebService;
 import by.vonotirah.booklibrary.web_app.services.AppContext;
 import by.vonotirah.booklibrary.web_app.services.BookService;
 
+@Component
 @Path("/book")
 public class BookRestService implements BookWebService {
 

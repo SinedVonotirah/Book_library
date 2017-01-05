@@ -10,11 +10,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Component;
+
 import by.vonotirah.booklibrary.persistence.domain.User;
 import by.vonotirah.booklibrary.web_app.UserWebService;
 import by.vonotirah.booklibrary.web_app.services.AppContext;
 import by.vonotirah.booklibrary.web_app.services.UserService;
 
+@Component
 @Path("/user")
 public class UserRestService implements UserWebService {
 
